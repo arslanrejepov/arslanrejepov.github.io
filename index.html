@@ -5,39 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arslan Rejepov | Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">ARSLAN.DEV</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <canvas id="bgCanvas"></canvas>
+    
+    <div class="main-content">
+        <header>
+            <h1 class="glitch" data-text="ARSLAN REJEPOV">ARSLAN REJEPOV</h1>
+            <p class="subtitle">Data Scientist | Machine Learning Engineer | Software Engineer</p>
+            <div class="location">📍 Hangzhou, China | Zhejiang University of Technology</div>
+        </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Arslan Rejepov</h1>
-            <p>Software Engineer | Machine Learning & Data Science Enthusiast</p>
-            <div class="stats-container">
-                <img src="https://github-readme-stats.vercel.app/api?username=arslanrejepov&show_icons=true&theme=tokyonight" alt="GitHub Stats">
+        <section id="profile">
+            <h2>01 — Profile</h2>
+            <p>I am a **Sophomore at the College of Computer Science**, specializing in **Software Engineering** [1]. My journey is driven by a passion for turning curiosity into creativity through **Machine Learning** and **Mathematics** [2]. I specialize in building classical ML and Deep Learning models and exposing them via **FastAPI** [1].</p>
+        </section>
+
+        <section id="achievements">
+            <h2>02 — Achievements & Credentials</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Google Professional Certificates</h3>
+                    <ul>
+                        <li>AI & Cybersecurity</li>
+                        <li>Data Analytics & IT Support</li>
+                        <li>Project Management & UX Design [3]</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>IBM Professional Certificates</h3>
+                    <ul>
+                        <li>AI Engineering</li>
+                        <li>Data Science</li>
+                        <li>AI Product Manager [3]</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Specialized Learning</h3>
+                    <ul>
+                        <li>Deep Learning Specialization (DeepLearning.AI) [4]</li>
+                        <li>Math for ML: Linear Algebra (Imperial College London) [5]</li>
+                        <li>Software Design Patterns (University of Alberta) [6]</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <div class="project-grid" id="project-list">
+        <section id="projects">
+            <h2>03 — Selected Projects</h2>
+            <div class="project-item">
+                <h3>Note_APP</h3>
+                <p>A Python-based backend project using **FastAPI**, fully **Dockerized** for deployment [7].</p>
             </div>
-    </section>
+            <div class="project-item">
+                <h3>Auto_Shifts_Arrangement_System</h3>
+                <p>A C++ implementation utilizing **Heaps (Priority Queues)** for real-life data optimization [7].</p>
+            </div>
+            <div class="project-item">
+                <h3>Kaggle ML Work</h3>
+                <p>Linear Regression for House Prices and Naive Bayes for PAM detection [2].</p>
+            </div>
+        </section>
 
-    <footer>
-        <p>&copy; 2026 Arslan Rejepov. Built with Code & Logic.</p>
-    </footer>
+        <footer>
+            <p>© 2026 Arslan Rejepov | GitHub Developer Program Member [8]</p>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
