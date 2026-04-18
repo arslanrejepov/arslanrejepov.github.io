@@ -1,26 +1,84 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
-<div class="achievement-grid">
-    <div class="category">
-        <h3>Professional Certificates</h3>
-        <ul>
-            <li class="cert-link" data-src="assets/certs/ibm-ds.png">IBM Data Science</li>
-            <li class="cert-link" data-src="assets/certs/intro-ai.png">Introduction to AI</li>
-        </ul>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arslan Rejepov | Portfolio</title>
     
-    <div class="category">
-        <h3>Mathematics & Theory</h3>
-        <ul>
-            <li class="cert-link" data-src="assets/certs/linear-alg.png">Math for ML: Linear Algebra</li>
-            <li class="cert-link" data-src="assets/certs/advanced-alg.png">Advanced Algorithms</li>
-        </ul>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="neuralCanvas"></canvas>
+    
+    <div class="main-wrapper">
+        <header>
+            <span class="badge">Open to Internships</span>
+            <h1>Arslan Rejepov</h1>
+            <p class="tagline">Data Scientist | Machine Learning Engineer | Software Engineer</p>
+            <p class="location">Hangzhou, China | Zhejiang University of Technology</p>
+        </header>
+
+        <section id="profile">
+            <h2>01 — Professional Profile</h2>
+            <div class="card">
+                <p>High-velocity Computer Science sophomore at <strong>Zhejiang University of Technology (ZJUT)</strong> specializing in the engineering and deployment of production-ready AI systems.</p>
+                <p>Architecting a "T-shaped" professional profile that bridges mathematical theory with robust backend infrastructure using <strong>FastAPI</strong> and <strong>Docker</strong>.</p>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <h2>02 — Professional Certificates</h2>
+            <div class="achievement-grid">
+                <div class="card">
+                    <h3>AI & Machine Learning</h3>
+                    <ul>
+                        <li class="cert-link" data-src="assets/certs/ibm-ds.png">IBM Data Science</li>
+                        <li class="cert-link" data-src="assets/certs/intro-ai.png">Introduction to AI</li>
+                        <li class="cert-link" data-src="assets/certs/dl-ai.png">DeepLearning.AI Spec.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Mathematics & Theory</h3>
+                    <ul>
+                        <li class="cert-link" data-src="assets/certs/linear-alg.png">Math for ML: Linear Algebra</li>
+                        <li class="cert-link" data-src="assets/certs/advanced-alg.png">Advanced Algorithms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>03 — Selected Projects</h2>
+            <div class="project-grid">
+                <div class="card">
+                    <h3 class="project-title">Note_APP</h3>
+                    <p>Containerized backend architecture using FastAPI and Docker for production-grade deployment.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="project-title">NN from Scratch</h3>
+                    <p>Implementation of Backpropagation and Simple Neural Networks from mathematical first principles.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Mathematics</span><span class="tech-tag">NumPy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Arslan Rejepov | GitHub Developer Program Member</p>
+        </footer>
     </div>
 
-    <div class="category">
-        <h3>Machine Learning Specialization</h3>
-        <ul>
-            <li class="cert-link" data-src="assets/certs/model-choosing.png">Model Selection & Evaluation</li>
-        </ul>
+    <div id="certModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="certImage">
     </div>
-</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
