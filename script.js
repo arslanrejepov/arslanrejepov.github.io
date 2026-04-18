@@ -1,14 +1,18 @@
+// 1. Interactive Deep NN Background Animation
 const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
-
-function resize() {
+        
+function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-window.onresize = resize;
-resize();
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
 let nodes = [];
+const numNodes = 80;
+const connectionDist = 180;
+
 class Node {
     constructor() {
         this.x = Math.random() * canvas.width;
@@ -23,37 +27,44 @@ class Node {
     }
 }
 
-for (let i = 0; i < 80; i++) nodes.push(new Node());
+function initNetwork() {
+    nodes = [];
+    for (let i = 0; i < numNodes; i++) nodes.push(new Node());
+}
 
-function animate() {
+function drawNetwork() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    nodes.forEach((n, i) => {
-        n.update();
-        nodes.slice(i + 1).forEach(n2 => {
-            let d = Math.hypot(n.x - n2.x, n.y - n2.y);
-            if (d < 180) {
-                ctx.strokeStyle = `rgba(0, 242, 255, ${1 - d/180})`;
+    for (let i = 0; i < nodes.length; i++) {
+        nodes[i].update();
+        for (let j = i + 1; j < nodes.length; j++) {
+            let dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+            if (dist < connectionDist) {
+                // Connection lines that fade with distance
+                ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist/connectionDist})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
-                ctx.moveTo(n.x, n.y); ctx.lineTo(n2.x, n2.y);
+                ctx.moveTo(nodes[i].x, nodes[i].y);
+                ctx.lineTo(nodes[j].x, nodes[j].y);
                 ctx.stroke();
             }
-        });
-    });
-    requestAnimationFrame(animate);
+        }
+    }
+    requestAnimationFrame(drawNetwork);
 }
-animate();
 
-// Modal Logic
+initNetwork(); drawNetwork();
+
+// 2. Modal Viewer Logic for Certificates
 const modal = document.getElementById("certModal");
 const modalImg = document.getElementById("certImage");
+const closeBtn = document.querySelector('.close-modal');
 
 document.querySelectorAll('.cert-link').forEach(link => {
-    link.onclick = function() {
+    link.addEventListener('click', function() {
         modal.style.display = "flex";
         modalImg.src = this.getAttribute('data-src');
-    }
+    });
 });
 
-document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
-window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
