@@ -1,7 +1,12 @@
 const canvas = document.getElementById('neuralCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.onresize = resize;
+resize();
 
 let nodes = [];
 class Node {
@@ -18,42 +23,37 @@ class Node {
     }
 }
 
-function init() {
-    for (let i = 0; i < 80; i++) nodes.push(new Node());
-}
+for (let i = 0; i < 80; i++) nodes.push(new Node());
 
-function draw() {
+function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    nodes.forEach(n => {
+    nodes.forEach((n, i) => {
         n.update();
-        nodes.forEach(n2 => {
-            let dist = Math.hypot(n.x - n2.x, n.y - n2.y);
-            if (dist < 150) {
-                ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist/150})`;
+        nodes.slice(i + 1).forEach(n2 => {
+            let d = Math.hypot(n.x - n2.x, n.y - n2.y);
+            if (d < 180) {
+                ctx.strokeStyle = `rgba(0, 242, 255, ${1 - d/180})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
-                ctx.moveTo(n.x, n.y);
-                ctx.lineTo(n2.x, n2.y);
+                ctx.moveTo(n.x, n.y); ctx.lineTo(n2.x, n2.y);
                 ctx.stroke();
             }
         });
     });
-    requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
 }
+animate();
 
 // Modal Logic
 const modal = document.getElementById("certModal");
 const modalImg = document.getElementById("certImage");
 
-document.querySelectorAll('.cert-link').forEach(item => {
-    item.addEventListener('click', function() {
+document.querySelectorAll('.cert-link').forEach(link => {
+    link.onclick = function() {
         modal.style.display = "flex";
-        modal.style.alignItems = "center";
         modalImg.src = this.getAttribute('data-src');
-    });
+    }
 });
 
 document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
-window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
-
-init(); draw();
+window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
