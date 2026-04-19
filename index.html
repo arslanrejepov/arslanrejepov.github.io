@@ -1,70 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arslan Rejepov | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arslan Rejepov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0f;
+    --bg2: #0a1219;
+    --card: #0d1821;
+    --border: #1a2d3d;
+    --cyan: #00e5ff;
+    --cyan-dim: #00b8cc;
+    --green: #39ff14;
+    --text: #c8d8e4;
+    --muted: #4a6070;
+    --white: #f0f8ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Fira Code', monospace;
+    overflow-x: hidden;
+  }
+  #neural-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none; opacity: 0.5;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: center; align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(5,10,15,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    gap: 2rem;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  main { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 4rem 4rem; gap: 3rem; flex-wrap: wrap;
+  }
+  .hero-left { display: flex; align-items: center; gap: 1.5rem; flex: 1; min-width: 260px; }
+  .hero-photo {
+    width: 88px; height: 88px; border: 2px solid var(--cyan);
+    border-radius: 50%; background: var(--bg2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+    color: var(--cyan); flex-shrink: 0; overflow: hidden;
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .hero-badge {
+    display: inline-block; border: 1px solid var(--cyan);
+    color: var(--cyan); font-size: 0.58rem; letter-spacing: 3px;
+    text-transform: uppercase; padding: 0.22rem 0.65rem;
+    margin-bottom: 0.5rem; animation: pulse-border 2.5s infinite;
+  }
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.35); }
+    50% { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    color: var(--white); letter-spacing: -0.5px; line-height: 1.1;
+  }
+  .hero-name span { color: var(--cyan); }
+  .hero-title { font-size: 0.72rem; color: var(--muted); margin-top: 0.35rem; letter-spacing: 1px; }
+  .hero-location { font-size: 0.67rem; color: var(--muted); margin-top: 0.25rem; }
+  .hero-right { flex-shrink: 0; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .stat-box {
+    background: rgba(13,24,33,0.9); border: 1px solid var(--border);
+    padding: 0.65rem 0.9rem; text-align: center; min-width: 88px;
+  }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--cyan); }
+  .stat-label { font-size: 0.52rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 0.18rem; }
+  .lang-tags { display: flex; flex-wrap: wrap; gap: 0.32rem; margin-top: 0.65rem; }
+  .lang-tag { font-size: 0.56rem; border: 1px solid var(--border); padding: 0.16rem 0.45rem; color: var(--muted); letter-spacing: 1px; }
+  .lang-tag.active { border-color: rgba(0,229,255,0.5); color: var(--cyan); }
+
+  section { padding: 5rem 4rem; position: relative; z-index: 1; }
+  .section-label { font-size: 0.58rem; color: var(--cyan); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(1.7rem, 3.5vw, 2.8rem);
+    color: var(--white); line-height: 1; margin-bottom: 2.2rem; letter-spacing: -0.5px;
+  }
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  /* PROFILE */
+  .profile-box {
+    border: 1px solid var(--border); background: rgba(13,24,33,0.88);
+    padding: 1.6rem; max-width: 760px; position: relative;
+  }
+  .profile-box::after {
+    content: '// about'; position: absolute; top: -0.55rem; right: 1.1rem;
+    background: var(--bg); color: var(--muted); font-size: 0.58rem; padding: 0 0.4rem; letter-spacing: 2px;
+  }
+  .profile-box p { line-height: 1.85; color: var(--text); font-size: 0.8rem; }
+  .profile-box p + p { margin-top: 0.8rem; }
+  .profile-box strong { color: var(--white); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px; border: 1px solid var(--border); background: var(--border); max-width: 920px;
+  }
+  .skill-col { background: rgba(13,24,33,0.92); padding: 1.2rem; }
+  .skill-col-title {
+    font-size: 0.58rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+  }
+  .skill-item {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.32rem 0; font-size: 0.75rem; color: var(--text);
+    border-bottom: 1px solid rgba(26,45,61,0.35);
+  }
+  .skill-item:last-child { border-bottom: none; }
+  .skill-dot { width: 5px; height: 5px; background: var(--cyan); border-radius: 50%; flex-shrink: 0; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; max-width: 1020px; }
+  .project-card {
+    border: 1px solid var(--border); background: rgba(13,24,33,0.88);
+    padding: 1.3rem; position: relative; transition: border-color 0.3s, transform 0.3s; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--cyan); transition: width 0.4s;
+  }
+  .project-card:hover::before { width: 100%; }
+  .project-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-2px); }
+  .project-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: rgba(0,229,255,0.07); margin-bottom: -0.35rem; }
+  .project-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--white); margin-bottom: 0.4rem; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.28rem; margin-bottom: 0.6rem; }
+  .tag { font-size: 0.56rem; border: 1px solid var(--border); color: var(--cyan-dim); padding: 0.1rem 0.4rem; letter-spacing: 1px; }
+  .project-desc { font-size: 0.71rem; color: var(--muted); line-height: 1.7; }
+  .project-link { display: inline-block; margin-top: 0.85rem; font-size: 0.66rem; color: var(--cyan); text-decoration: none; letter-spacing: 1px; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 840px; }
+  @media (max-width: 640px) { .edu-grid { grid-template-columns: 1fr; } }
+  .edu-card { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 1.35rem; }
+  .edu-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: rgba(0,229,255,0.06); margin-bottom: -0.35rem; }
+  .edu-school { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--white); margin-bottom: 0.22rem; }
+  .edu-degree { font-size: 0.64rem; color: var(--cyan); letter-spacing: 1px; margin-bottom: 0.6rem; }
+  .edu-desc { font-size: 0.71rem; color: var(--muted); line-height: 1.7; }
+  .edu-meta { display: flex; justify-content: space-between; margin-top: 0.85rem; font-size: 0.6rem; color: var(--muted); }
+
+  /* CERTIFICATES */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 920px; }
+  .cert-group { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 1.05rem; }
+  .cert-group-title {
+    font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 0.65rem;
+    padding-bottom: 0.38rem; border-bottom: 1px solid var(--border);
+  }
+  .cert-item {
+    font-size: 0.71rem; color: var(--text);
+    padding: 0.32rem 0; border-bottom: 1px solid rgba(26,45,61,0.4);
+    line-height: 1.45; cursor: pointer; transition: color 0.25s;
+    display: flex; align-items: flex-start; gap: 0.4rem;
+  }
+  .cert-item:last-child { border-bottom: none; }
+  .cert-item:hover { color: var(--cyan); }
+  .cert-item::before { content: '✓'; font-size: 0.58rem; color: var(--cyan); flex-shrink: 0; opacity: 0.65; padding-top: 0.05rem; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(5,10,15,0.94); z-index: 500;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1.75rem; max-width: 500px; width: 90%; position: relative;
+  }
+  .modal-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+  .modal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 0.25rem; }
+  .modal-inst { font-size: 0.65rem; color: var(--cyan); letter-spacing: 1px; margin-bottom: 0.9rem; }
+  .modal-cert-display {
+    width: 100%; aspect-ratio: 16/11; background: var(--bg2);
+    border: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 0.72rem; color: var(--muted);
+    margin-bottom: 0.9rem; overflow: hidden; position: relative;
+  }
+  .modal-cert-display img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-close {
+    position: absolute; top: 0.9rem; right: 0.9rem;
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); padding: 0.25rem 0.55rem;
+    cursor: pointer; font-size: 0.65rem; letter-spacing: 1px;
+    transition: border-color 0.25s, color 0.25s; font-family: 'Fira Code', monospace;
+  }
+  .modal-close:hover { border-color: var(--cyan); color: var(--cyan); }
+  .modal-link { display: inline-block; font-size: 0.68rem; color: var(--cyan); text-decoration: none; letter-spacing: 1px; }
+  .modal-link:hover { text-decoration: underline; }
+  .modal-note { font-size: 0.62rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; }
+
+  /* CONTACT */
+  #contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  @media (max-width: 768px) { #contact-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+  .contact-headline {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--white); line-height: 1.2; margin-bottom: 1.8rem;
+  }
+  .contact-headline span { color: var(--cyan); }
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.8rem 0.9rem; border: 1px solid var(--border); border-top: none;
+    color: var(--text); text-decoration: none; font-size: 0.74rem;
+    transition: background 0.25s, color 0.25s;
+  }
+  .contact-link:first-child { border-top: 1px solid var(--border); }
+  .contact-link:hover { background: var(--bg2); color: var(--cyan); }
+  .contact-icon { color: var(--cyan); width: 16px; font-size: 0.82rem; }
+  .form-field { margin-bottom: 0.65rem; }
+  .form-label { display: block; font-size: 0.56rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.32rem; }
+  .form-input, .form-textarea {
+    width: 100%; background: rgba(13,24,33,0.92); border: 1px solid var(--border);
+    color: var(--text); padding: 0.6rem; font-family: 'Fira Code', monospace;
+    font-size: 0.74rem; outline: none; transition: border-color 0.3s;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--cyan); }
+  .form-textarea { resize: vertical; min-height: 88px; }
+  .btn-primary {
+    background: var(--cyan); color: var(--bg); padding: 0.65rem 1.5rem;
+    font-family: 'Fira Code', monospace; font-size: 0.7rem;
+    letter-spacing: 2px; text-transform: uppercase; border: none;
+    cursor: pointer; transition: opacity 0.3s; width: 100%; margin-top: 0.35rem;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;
+    position: relative; z-index: 1;
+  }
+  footer span { color: var(--cyan); }
+
+  .fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.6rem; }
+    #hero { padding: 6rem 1.5rem 3rem; flex-direction: column; }
+    .hero-left { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    section { padding: 3.5rem 1.5rem; }
+    footer { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.35rem; }
+  }
+</style>
 </head>
 <body>
-    <canvas id="neuralCanvas"></canvas>
-    
-    <div class="main-wrapper">
-        <header>
-            <div class="header-container">
-                <a href="https://github.com/arslanrejepov" target="_blank" class="pfp-link">
-                    <img src="https://github.com/arslanrejepov.png" alt="Arslan Rejepov PFP" class="profile-photo">
-                </a>
-                <div class="name-data">
-                    <div class="badge">Open to Internships</div>
-                    <h1>Arslan Rejepov</h1>
-                    <p class="tagline">Data Scientist | Machine Learning Engineer | Software Engineer</p>
-                    <p class="location">Hangzhou, China | Zhejiang University of Technology</p>
-                </div>
-            </div>
-        </header>
 
-        <section id="profile">
-            <h2>01 — My Profile</h2>
-            <div class="card">
-                <p>High-velocity Computer Science sophomore at <strong>Zhejiang University of Technology (ZJUT)</strong> specializing in the engineering and deployment of production-ready AI systems.</p>
-                <p>Architecting a "T-shaped" professional profile that bridges mathematical theory—derived from first-principles Linear Algebra and Calculus—with robust backend infrastructure using <strong>FastAPI</strong> and <strong>Docker</strong>.</p>
-            </div>
-        </section>
+<canvas id="neural-canvas"></canvas>
 
-        <section id="achievements">
-            <h2>02 — My Certificates</h2>
-            <div class="achievement-grid">
-                <div class="card">
-                    <h3>IBM & AI</h3>
-                    <ul>
-                        <li class="cert-link" data-src="assets/certs/ibm-ds.png">IBM Data Science</li>
-                        <li class="cert-link" data-src="assets/certs/intro-ai.png">Introduction to AI</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Algorithms & Math</h3>
-                    <ul>
-                        <li class="cert-link" data-src="assets/certs/linear-alg.png">Math for ML: Linear Algebra</li>
-                        <li class="cert-link" data-src="assets/certs/advanced-alg.png">Advanced Algorithms</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Specialization</h3>
-                    <ul>
-                        <li class="cert-link" data-src="assets/certs/model-choosing.png">Model Selection & Evaluation</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<!-- Certificate Modal -->
+<div class="modal-overlay" id="certModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕ close</button>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-inst" id="modalInst"></div>
+    <div class="modal-cert-display" id="modalDisplay">
+      <span>Certificate</span>
     </div>
+    <a class="modal-link" id="modalLink" href="#" target="_blank">→ View on Coursera</a>
+    <p class="modal-note" id="modalNote"></p>
+  </div>
+</div>
 
-    <div id="certModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="certImage">
+<nav>
+  <div class="nav-links">
+    <a href="#profile">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#certs">Certificates</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left fade-up">
+      <div class="hero-photo">AR</div>
+      <div>
+        <div class="hero-badge">● Open to Internships</div>
+        <h1 class="hero-name">Arslan <span>Rejepov</span></h1>
+        <p class="hero-title">Software Engineering · ML Engineering</p>
+        <p class="hero-location">📍 Hangzhou, China · Zhejiang University of Technology</p>
+      </div>
     </div>
+    <div class="hero-right fade-up" style="transition-delay:0.15s">
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num">578+</div><div class="stat-label">Contributions</div></div>
+        <div class="stat-box"><div class="stat-num">3.78</div><div class="stat-label">GPA / 5.0</div></div>
+        <div class="stat-box"><div class="stat-num">2×</div><div class="stat-label">Scholarship</div></div>
+        <div class="stat-box"><div class="stat-num">2nd</div><div class="stat-label">Year CS</div></div>
+      </div>
+      <div class="lang-tags">
+        <span class="lang-tag active">EN · Fluent</span>
+        <span class="lang-tag active">TK · Native</span>
+        <span class="lang-tag active">ZH · HSK 3</span>
+        <span class="lang-tag">RU · Fluent</span>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <hr class="divider">
+
+  <!-- PROFILE -->
+  <section id="profile">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">PROFILE</h2>
+    <div class="profile-box fade-up">
+      <p>Computer Science sophomore at <strong>Zhejiang University of Technology (ZJUT)</strong>, majoring in Software Engineering. I'm working toward becoming an ML Engineer — and I believe getting the fundamentals right first is the only way to do it properly.</p>
+      <p>I've built hands-on experience with <strong>classical Machine Learning</strong> (regression, classification, NLP pipelines) using Scikit-learn and Kaggle datasets. I'm now moving into <strong>Deep Learning</strong> — studying neural network mechanics from scratch to understand what's actually happening beneath the abstractions.</p>
+      <p>Looking for an <strong>internship</strong> where I can work on real problems, contribute meaningfully, and keep growing fast. I learn quickly and take the work seriously.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">02 — Technical Stack</div>
+    <h2 class="section-title">SKILLS</h2>
+    <div class="skills-grid fade-up">
+      <div class="skill-col">
+        <div class="skill-col-title">// Languages & Tools</div>
+        <div class="skill-item"><span class="skill-dot"></span>Python</div>
+        <div class="skill-item"><span class="skill-dot"></span>C++</div>
+        <div class="skill-item"><span class="skill-dot"></span>SQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>FastAPI</div>
+        <div class="skill-item"><span class="skill-dot"></span>Docker</div>
+        <div class="skill-item"><span class="skill-dot"></span>Git & GitHub</div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">// ML & Data</div>
+        <div class="skill-item"><span class="skill-dot"></span>Scikit-learn</div>
+        <div class="skill-item"><span class="skill-dot"></span>NumPy</div>
+        <div class="skill-item"><span class="skill-dot"></span>Pandas</div>
+        <div class="skill-item"><span class="skill-dot"></span>Jupyter Notebooks</div>
+        <div class="skill-item"><span class="skill-dot"></span>TensorFlow (learning)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Kaggle</div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">// Concepts</div>
+        <div class="skill-item"><span class="skill-dot"></span>Classical ML Models</div>
+        <div class="skill-item"><span class="skill-dot"></span>Neural Network Fundamentals</div>
+        <div class="skill-item"><span class="skill-dot"></span>Linear Algebra for ML</div>
+        <div class="skill-item"><span class="skill-dot"></span>NLP Basics</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data Structures & Algorithms</div>
+        <div class="skill-item"><span class="skill-dot"></span>Software Architecture</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">03 — Work</div>
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-num">01</div>
+        <div class="project-name">Note App</div>
+        <div class="project-tech"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
+        <p class="project-desc">Containerized REST API backend built with FastAPI. Full lifecycle management via Docker for portable deployment. Integrated with open-source frontend.</p>
+        <a href="https://github.com/arslanrejepov/Note_APP" class="project-link" target="_blank">→ github.com/arslanrejepov/Note_APP</a>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.08s">
+        <div class="project-num">02</div>
+        <div class="project-name">Neural Networks from Scratch</div>
+        <div class="project-tech"><span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">Math</span></div>
+        <p class="project-desc">Simple Neural Networks and Backpropagation built from first principles — no high-level wrappers. Focus on understanding gradient descent and weight updates at the equation level.</p>
+        <a href="https://github.com/arslanrejepov" class="project-link" target="_blank">→ View on GitHub</a>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.16s">
+        <div class="project-num">03</div>
+        <div class="project-name">Auto Shifts Arrangement</div>
+        <div class="project-tech"><span class="tag">C++</span><span class="tag">Heap</span><span class="tag">Priority Queue</span></div>
+        <p class="project-desc">Real-time scheduling system using Heap and Priority Queue data structures for shift allocation. Focuses on algorithmic complexity and memory efficiency.</p>
+        <a href="https://github.com/arslanrejepov/Auto_Shifts_Arrangement_System" class="project-link" target="_blank">→ github.com/.../Auto_Shifts</a>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.24s">
+        <div class="project-num">04</div>
+        <div class="project-name">Classical ML Models</div>
+        <div class="project-tech"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">NumPy</span><span class="tag">Kaggle</span></div>
+        <p class="project-desc">Linear Regression for house price prediction and Naive Bayes spam detector. Iterative testing and benchmarking on Kaggle datasets in Jupyter.</p>
+        <a href="https://github.com/arslanrejepov/classical-machine-learning-models" class="project-link" target="_blank">→ github.com/.../classical-ml</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">04 — Academic</div>
+    <h2 class="section-title">EDUCATION</h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-up">
+        <div class="edu-num">01</div>
+        <div class="edu-school">Zhejiang University of Technology</div>
+        <div class="edu-degree">BSc — Computer Science · Software Engineering</div>
+        <p class="edu-desc">Coursework: Advanced Learning Algorithms, Linear Algebra for ML, Network Models, System Software Design, Problem Solving. Awarded the University Scholarship twice.</p>
+        <div class="edu-meta">
+          <span>2024 – Present</span>
+          <span style="color:var(--cyan)">GPA 3.78 / 5.0 · 2× Scholarship</span>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.1s">
+        <div class="edu-num">02</div>
+        <div class="edu-school">Online Courses</div>
+        <div class="edu-degree">DeepLearning.AI · IBM · Imperial College · Google · Coursera</div>
+        <p class="edu-desc">Completed courses in Machine Learning, Deep Learning fundamentals, Linear Algebra, AI, Data Science, Cybersecurity, and Software Design — self-directed study alongside the degree.</p>
+        <div class="edu-meta">
+          <span>2024 – 2025</span>
+          <span style="color:var(--cyan)">Several Credentials</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CERTIFICATES -->
+  <section id="certs">
+    <div class="section-label">05 — Credentials</div>
+    <h2 class="section-title">CERTIFICATES</h2>
+    <p style="font-size:0.7rem;color:var(--muted);margin-bottom:1.6rem;letter-spacing:0.5px;">Click any item to view the certificate. Provide your certificate image links and I'll wire them in.</p>
+    <div class="certs-grid">
+      <div class="cert-group fade-up">
+        <div class="cert-group-title">DeepLearning.AI</div>
+        <div class="cert-item" onclick="openModal('Advanced Learning Algorithms','DeepLearning.AI','https://coursera.org','')">Advanced Learning Algorithms</div>
+      </div>
+      <div class="cert-group fade-up" style="transition-delay:0.07s">
+        <div class="cert-group-title">Imperial College London</div>
+        <div class="cert-item" onclick="openModal('Math for ML: Linear Algebra','Imperial College London','https://coursera.org','')">Math for ML: Linear Algebra</div>
+      </div>
+      <div class="cert-group fade-up" style="transition-delay:0.14s">
+        <div class="cert-group-title">University of Alberta</div>
+        <div class="cert-item" onclick="openModal('Design Patterns','University of Alberta','https://coursera.org','')">Design Patterns</div>
+      </div>
+      <div class="cert-group fade-up" style="transition-delay:0.21s">
+        <div class="cert-group-title">Coursera</div>
+        <div class="cert-item" onclick="openModal('Learn to Choose the Right ML Model','Coursera','https://coursera.org','')">Choose the Right ML Model</div>
+      </div>
+      <div class="cert-group fade-up" style="transition-delay:0.28s">
+        <div class="cert-group-title">IBM</div>
+        <div class="cert-item" onclick="openModal('Introduction to Artificial Intelligence (AI)','IBM','https://coursera.org','')">Introduction to AI</div>
+        <div class="cert-item" onclick="openModal('What is Data Science?','IBM','https://coursera.org','')">What is Data Science?</div>
+      </div>
+      <div class="cert-group fade-up" style="transition-delay:0.35s">
+        <div class="cert-group-title">ZJUT Achievement</div>
+        <div class="cert-item" onclick="openModal('University Scholarship','Zhejiang University of Technology · 1st Award','#','Awarded for academic performance in Year 1.')">Scholarship · Year 1</div>
+        <div class="cert-item" onclick="openModal('University Scholarship','Zhejiang University of Technology · 2nd Award','#','Awarded for academic performance in Year 2.')">Scholarship · Year 2</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">06 — Connect</div>
+    <h2 class="section-title">CONTACT</h2>
+    <div id="contact-wrap">
+      <div>
+        <p class="contact-headline">Open to learning<br>and <span>contributing.</span></p>
+        <div class="contact-links">
+          <a href="mailto:arslanrejepov174@gmail.com" class="contact-link">
+            <span class="contact-icon">@</span> arslanrejepov174@gmail.com
+          </a>
+          <a href="https://github.com/arslanrejepov" class="contact-link" target="_blank">
+            <span class="contact-icon">⌥</span> github.com/arslanrejepov
+          </a>
+          <a href="https://kaggle.com/arslanrejepov" class="contact-link" target="_blank">
+            <span class="contact-icon">◈</span> Kaggle Profile
+          </a>
+          <a href="#" class="contact-link" target="_blank">
+            <span class="contact-icon">in</span> LinkedIn — share your link
+          </a>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="form-field">
+          <label class="form-label">Your Email</label>
+          <input class="form-input" type="email" placeholder="you@example.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="Internship / Collaboration / Question">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Hi Arslan, I'd like to..."></textarea>
+        </div>
+        <button class="btn-primary">SEND MESSAGE →</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>Arslan Rejepov · Hangzhou, China · <span>Open to Internships</span></div>
+  <div>arslanrejepov174@gmail.com</div>
+</footer>
+
+<script>
+// ── LAYERED NEURAL NETWORK BACKGROUND ─────────────────────────────────────
+// 15 layers: input (left) → 13 hidden → output (right)
+// Signals flow strictly left → right
+
+const canvas = document.getElementById('neural-canvas');
+const ctx = canvas.getContext('2d');
+
+const CYAN_C = '0,229,255';
+const GREEN_C = '57,255,20';
+
+// 15 layer sizes — input/output smaller, hidden layers bulge in middle
+const LAYERS = [5, 8, 11, 13, 14, 15, 14, 13, 12, 11, 10, 8, 7, 5, 4];
+const L = LAYERS.length; // 15
+
+let W, H, nodes = [], edges = [], signals = [], layerStarts = [];
+let frame = 0;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  buildNet();
+}
+
+function buildNet() {
+  nodes = []; edges = []; signals = []; layerStarts = [];
+
+  const padX = W * 0.03;
+  const usableW = W - padX * 2;
+  const layerGap = usableW / (L - 1);
+  const maxN = Math.max(...LAYERS);
+
+  let idx = 0;
+  for (let l = 0; l < L; l++) {
+    layerStarts[l] = idx;
+    const count = LAYERS[l];
+    const x = padX + l * layerGap;
+    const slotH = H / (maxN + 1);
+    const offset = (maxN - count) / 2;
+
+    for (let n = 0; n < count; n++) {
+      nodes.push({
+        l, n, x,
+        y: (offset + n + 1) * slotH,
+        pulse: Math.random() * Math.PI * 2,
+        litTimer: 0,
+        r: (l === 0 || l === L - 1) ? 3.5 : 2.2
+      });
+      idx++;
+    }
+  }
+
+  // Edges: each node connects to all nodes in next layer
+  for (let l = 0; l < L - 1; l++) {
+    const aCount = LAYERS[l], bCount = LAYERS[l + 1];
+    for (let a = 0; a < aCount; a++) {
+      for (let b = 0; b < bCount; b++) {
+        // Vary alpha by layer depth for depth effect
+        const alpha = 0.025 + (l / L) * 0.04 + Math.random() * 0.025;
+        edges.push({ from: layerStarts[l] + a, to: layerStarts[l + 1] + b, alpha });
+      }
+    }
+  }
+
+  // Seed several active signals spread across network
+  for (let i = 0; i < 12; i++) spawnSignal(Math.random());
+}
+
+function spawnSignal(progressOffset = 0) {
+  // Weight toward earlier layers for a wave effect
+  const layerIdx = Math.floor(Math.pow(Math.random(), 1.8) * (L - 1));
+  const aCount = LAYERS[layerIdx];
+  const bCount = LAYERS[layerIdx + 1];
+  if (!aCount || !bCount) return;
+  const a = layerStarts[layerIdx] + Math.floor(Math.random() * aCount);
+  const b = layerStarts[layerIdx + 1] + Math.floor(Math.random() * bCount);
+  signals.push({
+    from: a, to: b,
+    progress: progressOffset,
+    speed: 0.007 + Math.random() * 0.006,
+    color: Math.random() < 0.12 ? GREEN_C : CYAN_C
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  frame++;
+
+  // Draw all edges
+  for (const e of edges) {
+    const a = nodes[e.from], b = nodes[e.to];
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(0,180,210,${e.alpha})`;
+    ctx.lineWidth = 0.35;
+    ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+    ctx.stroke();
+  }
+
+  // Draw & advance signals
+  const alive = [];
+  for (const s of signals) {
+    const a = nodes[s.from], b = nodes[s.to];
+    const x = a.x + (b.x - a.x) * s.progress;
+    const y = a.y + (b.y - a.y) * s.progress;
+
+    // Glow
+    const g = ctx.createRadialGradient(x, y, 0, x, y, 8);
+    g.addColorStop(0, `rgba(${s.color},0.9)`);
+    g.addColorStop(0.45, `rgba(${s.color},0.3)`);
+    g.addColorStop(1, `rgba(${s.color},0)`);
+    ctx.beginPath(); ctx.fillStyle = g;
+    ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
+
+    // Trail
+    const tp = Math.max(0, s.progress - 0.18);
+    const tx = a.x + (b.x - a.x) * tp;
+    const ty = a.y + (b.y - a.y) * tp;
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(${s.color},0.55)`;
+    ctx.lineWidth = 1.3;
+    ctx.moveTo(tx, ty); ctx.lineTo(x, y); ctx.stroke();
+
+    s.progress += s.speed;
+    if (s.progress >= 1) {
+      nodes[s.to].litTimer = 20;
+    } else {
+      alive.push(s);
+    }
+  }
+  signals = alive;
+
+  // Spawn new signals
+  if (frame % 20 === 0 && signals.length < 35) spawnSignal();
+  if (frame % 55 === 0) { spawnSignal(); spawnSignal(); }
+
+  // Draw nodes
+  for (const n of nodes) {
+    n.pulse += 0.018;
+    let r = n.r;
+    let alpha = 0.45 + Math.sin(n.pulse) * 0.2;
+    const color = (n.l === 0 || n.l === L - 1) ? GREEN_C : CYAN_C;
+
+    if (n.litTimer > 0) {
+      alpha = Math.min(1, alpha + 0.5);
+      r = n.r * 2;
+      n.litTimer--;
+    }
+
+    // Outer glow ring
+    const gn = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 5);
+    gn.addColorStop(0, `rgba(${color},${alpha * 0.35})`);
+    gn.addColorStop(1, `rgba(${color},0)`);
+    ctx.beginPath(); ctx.fillStyle = gn;
+    ctx.arc(n.x, n.y, r * 5, 0, Math.PI * 2); ctx.fill();
+
+    // Core
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${color},${alpha})`;
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  requestAnimationFrame(draw);
+}
+
+resize();
+draw();
+window.addEventListener('resize', resize);
+
+// ── Certificate Modal ──────────────────────────────────────────────────────
+function openModal(title, inst, link, note) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalInst').textContent = inst;
+  const ml = document.getElementById('modalLink');
+  ml.href = link;
+  ml.style.display = link === '#' ? 'none' : 'inline-block';
+  document.getElementById('modalDisplay').innerHTML =
+    `<span style="color:var(--muted);font-size:0.7rem;text-align:center;padding:1rem;">` +
+    `Certificate · ${title}<br><span style="font-size:0.6rem;opacity:0.6">Add your certificate image/link to show it here</span></span>`;
+  document.getElementById('modalNote').textContent = note || '';
+  document.getElementById('certModal').classList.add('active');
+}
+function closeModal() { document.getElementById('certModal').classList.remove('active'); }
+document.getElementById('certModal').addEventListener('click', e => { if (e.target === document.getElementById('certModal')) closeModal(); });
+
+// ── Scroll fade-up ─────────────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 150 + i * 120);
+  });
+});
+</script>
 </body>
 </html>

@@ -1,29 +1,65 @@
-# Arslan Rejepov | Data Science & Software Engineering
+# Hi, I'm Arslan Rejepov 👋
 
-👋 Hello! I am **Arslan Rejepov**, a Sophomore specializing in **Software Engineering** at **Zhejiang University of Technology (ZJUT)** [1]. I am an aspiring **Data Scientist** and **Machine Learning Engineer** with a deep passion for mathematical optimization and algorithm design [2, 9].
-
-## 🏆 Professional Achievements
-I have earned a comprehensive suite of professional credentials from industry leaders:
-- **Google Professional Certificates:** Data Analytics, AI, Cybersecurity, IT Support, Project Management, and UX Design [3].
-- **IBM Professional Certificates:** AI Engineering, Data Science, and AI Product Management [3].
-- **Academic Specializations:** 
-  - Deep Learning Specialization by **DeepLearning.AI** [4].
-  - Mathematics for Machine Learning by **Imperial College London** [5].
-  - Software Design Patterns by **University of Alberta** [6].
-
-## 💻 Technical Arsenal
-- **Languages:** Python (Advanced), C++, SQL [3, 7].
-- **Libraries/Tools:** TensorFlow, Scikit-learn, Pandas, FastAPI, Docker, Jupyter [1, 7].
-- **GitHub Activity:** Over **578 contributions** in the last year [10].
-
-## 🚀 Key Projects
-- **[Note_APP](https://github.com/arslanrejepov/Note_APP):** A full-featured backend developed with **FastAPI** and containerized using **Docker** [7].
-- **[Auto_Shifts_Arrangement](https://github.com/arslanrejepov/Auto_Shifts_Arrangement_System):** A C++ system implementing high-level data structures like **Heaps/Priority Queues** [7].
-- **[Classical ML Models](https://github.com/arslanrejepov/classical-machine-learning-models):** A repository of models built with Scikit-learn and Kaggle datasets [7].
-
-## 📊 Kaggle Highlights
-- Developed Linear Regression models for **House Prices** prediction [2].
-- Built **Naive Bayes PAM detectors** for text classification [2].
+Sophomore at **Zhejiang University of Technology (ZJUT)**, majoring in **Software Engineering**.  
+Based in Hangzhou, China 📍
 
 ---
-*Based in Hangzhou, China. Open to collaborations in AI and Software Development.*
+
+## About Me
+
+- 🤖 Building classical **Machine Learning** models and now moving into **Deep Learning** fundamentals
+- 🧮 Applying **mathematical principles** (Linear Algebra, Calculus) to understand what's happening under the hood
+- 🚀 Exposing trained models via **FastAPI** and containerizing them with **Docker**
+- 📚 Studying Neural Networks from scratch — because fundamentals matter
+- 🎯 Looking for an **internship** in ML or Software Engineering
+
+---
+
+## 🛠 Tools & Technologies
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+
+---
+
+## 📂 Projects
+
+| Project | Stack | Description |
+|---|---|---|
+| [Note App](https://github.com/arslanrejepov/Note_APP) | Python · FastAPI · Docker | Containerized REST API backend |
+| [Neural Networks from Scratch](https://github.com/arslanrejepov) | Python · NumPy | SNN + Backpropagation built from first principles |
+| [Auto Shifts Arrangement](https://github.com/arslanrejepov/Auto_Shifts_Arrangement_System) | C++ · Heap/PQ | Real-time scheduling with data structures |
+| [Classical ML Models](https://github.com/arslanrejepov/classical-machine-learning-models) | Scikit-learn · Kaggle | Regression, Naive Bayes, benchmarking |
+
+---
+
+## 🎓 Education
+
+**Zhejiang University of Technology** — BSc Computer Science (Software Engineering)  
+2024 – Present · GPA 3.78/5.0 · 🏅 University Scholarship ×2
+
+---
+
+## 🌐 Languages
+
+- Turkmen (Native) · English (Fluent) · Russian (Fluent) · Chinese (HSK 3)
+
+---
+
+## 📬 Contact
+
+📧 arslanrejepov174@gmail.com  
+🐙 [GitHub](https://github.com/arslanrejepov)  
+🌐 [Portfolio](https://arslanrejepov.github.io)
+
+---
+
+*Open to internships in ML Engineering and Software Engineering.*
