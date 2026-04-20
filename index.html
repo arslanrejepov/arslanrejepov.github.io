@@ -21,130 +21,85 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Fira Code', monospace;
-    overflow-x: hidden;
-  }
-  #neural-canvas {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0; pointer-events: none; opacity: 0.5;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Fira Code', monospace; overflow-x: hidden; }
+
+  #neural-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.5; }
+
+  /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: center; align-items: center;
-    padding: 1rem 3rem;
-    background: rgba(5,10,15,0.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    gap: 2rem;
+    padding: 1rem 3rem; background: rgba(5,10,15,0.88);
+    backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); gap: 2rem;
   }
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
-    transition: color 0.3s;
-  }
+  .nav-links { display: flex; gap: 1.8rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.67rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
   .nav-links a:hover { color: var(--cyan); }
   main { position: relative; z-index: 1; }
 
   /* HERO */
-  #hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 8rem 4rem 4rem; gap: 3rem; flex-wrap: wrap;
-  }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; gap: 3rem; flex-wrap: wrap; }
   .hero-left { display: flex; align-items: center; gap: 1.5rem; flex: 1; min-width: 260px; }
   .hero-photo {
-    width: 88px; height: 88px; border: 2px solid var(--cyan);
-    border-radius: 50%; background: var(--bg2);
-    display: flex; align-items: center; justify-content: center;
+    width: 88px; height: 88px; border: 2px solid var(--cyan); border-radius: 50%;
+    background: var(--bg2); display: flex; align-items: center; justify-content: center;
     font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
     color: var(--cyan); flex-shrink: 0; overflow: hidden;
   }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
   .hero-badge {
-    display: inline-block; border: 1px solid var(--cyan);
-    color: var(--cyan); font-size: 0.58rem; letter-spacing: 3px;
-    text-transform: uppercase; padding: 0.22rem 0.65rem;
-    margin-bottom: 0.5rem; animation: pulse-border 2.5s infinite;
+    display: inline-block; border: 1px solid var(--cyan); color: var(--cyan);
+    font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase;
+    padding: 0.22rem 0.65rem; margin-bottom: 0.5rem; animation: pulse-border 2.5s infinite;
   }
   @keyframes pulse-border {
     0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.35); }
     50% { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
   }
-  .hero-name {
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: clamp(1.5rem, 3vw, 2.4rem);
-    color: var(--white); letter-spacing: -0.5px; line-height: 1.1;
-  }
+  .hero-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 3vw, 2.4rem); color: var(--white); letter-spacing: -0.5px; line-height: 1.1; }
   .hero-name span { color: var(--cyan); }
   .hero-title { font-size: 0.72rem; color: var(--muted); margin-top: 0.35rem; letter-spacing: 1px; }
   .hero-location { font-size: 0.67rem; color: var(--muted); margin-top: 0.25rem; }
   .hero-right { flex-shrink: 0; }
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-  .stat-box {
-    background: rgba(13,24,33,0.9); border: 1px solid var(--border);
-    padding: 0.65rem 0.9rem; text-align: center; min-width: 88px;
-  }
+  .stat-box { background: rgba(13,24,33,0.9); border: 1px solid var(--border); padding: 0.65rem 0.9rem; text-align: center; min-width: 88px; }
   .stat-num { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--cyan); }
   .stat-label { font-size: 0.52rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 0.18rem; }
   .lang-tags { display: flex; flex-wrap: wrap; gap: 0.32rem; margin-top: 0.65rem; }
   .lang-tag { font-size: 0.56rem; border: 1px solid var(--border); padding: 0.16rem 0.45rem; color: var(--muted); letter-spacing: 1px; }
   .lang-tag.active { border-color: rgba(0,229,255,0.5); color: var(--cyan); }
 
+  /* SECTIONS */
   section { padding: 5rem 4rem; position: relative; z-index: 1; }
   .section-label { font-size: 0.58rem; color: var(--cyan); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 0.35rem; }
-  .section-title {
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: clamp(1.7rem, 3.5vw, 2.8rem);
-    color: var(--white); line-height: 1; margin-bottom: 2.2rem; letter-spacing: -0.5px;
-  }
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.7rem, 3.5vw, 2.8rem); color: var(--white); line-height: 1; margin-bottom: 2.2rem; letter-spacing: -0.5px; }
   .divider { border: none; border-top: 1px solid var(--border); }
 
   /* PROFILE */
-  .profile-box {
-    border: 1px solid var(--border); background: rgba(13,24,33,0.88);
-    padding: 1.6rem; max-width: 760px; position: relative;
-  }
-  .profile-box::after {
-    content: '// about'; position: absolute; top: -0.55rem; right: 1.1rem;
-    background: var(--bg); color: var(--muted); font-size: 0.58rem; padding: 0 0.4rem; letter-spacing: 2px;
-  }
+  .profile-box { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 1.6rem; max-width: 760px; position: relative; }
+  .profile-box::after { content: '// about'; position: absolute; top: -0.55rem; right: 1.1rem; background: var(--bg); color: var(--muted); font-size: 0.58rem; padding: 0 0.4rem; letter-spacing: 2px; }
   .profile-box p { line-height: 1.85; color: var(--text); font-size: 0.8rem; }
   .profile-box p + p { margin-top: 0.8rem; }
   .profile-box strong { color: var(--white); }
 
   /* SKILLS */
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 1px; border: 1px solid var(--border); background: var(--border); max-width: 920px;
-  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; border: 1px solid var(--border); background: var(--border); max-width: 920px; }
   .skill-col { background: rgba(13,24,33,0.92); padding: 1.2rem; }
-  .skill-col-title {
-    font-size: 0.58rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase;
-    margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
-  }
-  .skill-item {
-    display: flex; align-items: center; gap: 0.45rem;
-    padding: 0.32rem 0; font-size: 0.75rem; color: var(--text);
-    border-bottom: 1px solid rgba(26,45,61,0.35);
-  }
+  .skill-col-title { font-size: 0.58rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .skill-item { display: flex; align-items: center; gap: 0.45rem; padding: 0.32rem 0; font-size: 0.75rem; color: var(--text); border-bottom: 1px solid rgba(26,45,61,0.35); }
   .skill-item:last-child { border-bottom: none; }
   .skill-dot { width: 5px; height: 5px; background: var(--cyan); border-radius: 50%; flex-shrink: 0; }
 
+  /* GITHUB STATS */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; max-width: 980px; }
+  .stats-card { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 0; overflow: hidden; }
+  .stats-card img { width: 100%; display: block; }
+  .stats-label { font-size: 0.58rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding: 0.6rem 0.9rem; border-top: 1px solid var(--border); }
+
   /* PROJECTS */
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; max-width: 1020px; }
-  .project-card {
-    border: 1px solid var(--border); background: rgba(13,24,33,0.88);
-    padding: 1.3rem; position: relative; transition: border-color 0.3s, transform 0.3s; overflow: hidden;
-  }
-  .project-card::before {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    height: 2px; width: 0; background: var(--cyan); transition: width 0.4s;
-  }
+  .project-card { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 1.3rem; position: relative; transition: border-color 0.3s, transform 0.3s; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--cyan); transition: width 0.4s; }
   .project-card:hover::before { width: 100%; }
   .project-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-2px); }
   .project-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: rgba(0,229,255,0.07); margin-bottom: -0.35rem; }
@@ -166,54 +121,25 @@
   .edu-meta { display: flex; justify-content: space-between; margin-top: 0.85rem; font-size: 0.6rem; color: var(--muted); }
 
   /* CERTIFICATES */
-  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 920px; }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 960px; }
   .cert-group { border: 1px solid var(--border); background: rgba(13,24,33,0.88); padding: 1.05rem; }
-  .cert-group-title {
-    font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--cyan); margin-bottom: 0.65rem;
-    padding-bottom: 0.38rem; border-bottom: 1px solid var(--border);
-  }
-  .cert-item {
-    font-size: 0.71rem; color: var(--text);
-    padding: 0.32rem 0; border-bottom: 1px solid rgba(26,45,61,0.4);
-    line-height: 1.45; cursor: pointer; transition: color 0.25s;
-    display: flex; align-items: flex-start; gap: 0.4rem;
-  }
+  .cert-group-title { font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.65rem; padding-bottom: 0.38rem; border-bottom: 1px solid var(--border); }
+  .cert-item { font-size: 0.71rem; color: var(--text); padding: 0.32rem 0; border-bottom: 1px solid rgba(26,45,61,0.4); line-height: 1.45; cursor: pointer; transition: color 0.25s; display: flex; align-items: flex-start; gap: 0.4rem; }
   .cert-item:last-child { border-bottom: none; }
   .cert-item:hover { color: var(--cyan); }
   .cert-item::before { content: '✓'; font-size: 0.58rem; color: var(--cyan); flex-shrink: 0; opacity: 0.65; padding-top: 0.05rem; }
 
-  /* Modal */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(5,10,15,0.94); z-index: 500;
-    align-items: center; justify-content: center;
-  }
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(5,10,15,0.94); z-index: 500; align-items: center; justify-content: center; }
   .modal-overlay.active { display: flex; }
-  .modal-box {
-    background: var(--card); border: 1px solid var(--border);
-    padding: 1.75rem; max-width: 500px; width: 90%; position: relative;
-  }
-  .modal-box::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: linear-gradient(90deg, var(--cyan), transparent);
-  }
+  .modal-box { background: var(--card); border: 1px solid var(--border); padding: 1.75rem; max-width: 620px; width: 92%; position: relative; }
+  .modal-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); }
   .modal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 0.25rem; }
   .modal-inst { font-size: 0.65rem; color: var(--cyan); letter-spacing: 1px; margin-bottom: 0.9rem; }
-  .modal-cert-display {
-    width: 100%; aspect-ratio: 16/11; background: var(--bg2);
-    border: 1px solid var(--border); display: flex; align-items: center;
-    justify-content: center; font-size: 0.72rem; color: var(--muted);
-    margin-bottom: 0.9rem; overflow: hidden; position: relative;
-  }
-  .modal-cert-display img { width: 100%; height: 100%; object-fit: cover; }
-  .modal-close {
-    position: absolute; top: 0.9rem; right: 0.9rem;
-    background: none; border: 1px solid var(--border);
-    color: var(--muted); padding: 0.25rem 0.55rem;
-    cursor: pointer; font-size: 0.65rem; letter-spacing: 1px;
-    transition: border-color 0.25s, color 0.25s; font-family: 'Fira Code', monospace;
-  }
+  .modal-cert-display { width: 100%; background: var(--bg2); border: 1px solid var(--border); margin-bottom: 0.9rem; overflow: hidden; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+  .modal-cert-display img { width: 100%; display: block; }
+  .modal-cert-display span { font-size: 0.7rem; color: var(--muted); padding: 2rem; text-align: center; }
+  .modal-close { position: absolute; top: 0.9rem; right: 0.9rem; background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.25rem 0.55rem; cursor: pointer; font-size: 0.65rem; letter-spacing: 1px; transition: border-color 0.25s, color 0.25s; font-family: 'Fira Code', monospace; }
   .modal-close:hover { border-color: var(--cyan); color: var(--cyan); }
   .modal-link { display: inline-block; font-size: 0.68rem; color: var(--cyan); text-decoration: none; letter-spacing: 1px; }
   .modal-link:hover { text-decoration: underline; }
@@ -222,53 +148,31 @@
   /* CONTACT */
   #contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   @media (max-width: 768px) { #contact-wrap { grid-template-columns: 1fr; gap: 2rem; } }
-  .contact-headline {
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--white); line-height: 1.2; margin-bottom: 1.8rem;
-  }
+  .contact-headline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--white); line-height: 1.2; margin-bottom: 1.8rem; }
   .contact-headline span { color: var(--cyan); }
   .contact-links { display: flex; flex-direction: column; }
-  .contact-link {
-    display: flex; align-items: center; gap: 0.9rem;
-    padding: 0.8rem 0.9rem; border: 1px solid var(--border); border-top: none;
-    color: var(--text); text-decoration: none; font-size: 0.74rem;
-    transition: background 0.25s, color 0.25s;
-  }
+  .contact-link { display: flex; align-items: center; gap: 0.9rem; padding: 0.8rem 0.9rem; border: 1px solid var(--border); border-top: none; color: var(--text); text-decoration: none; font-size: 0.74rem; transition: background 0.25s, color 0.25s; }
   .contact-link:first-child { border-top: 1px solid var(--border); }
   .contact-link:hover { background: var(--bg2); color: var(--cyan); }
-  .contact-icon { color: var(--cyan); width: 16px; font-size: 0.82rem; }
+  .contact-icon { color: var(--cyan); width: 18px; font-size: 0.82rem; flex-shrink: 0; }
   .form-field { margin-bottom: 0.65rem; }
   .form-label { display: block; font-size: 0.56rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.32rem; }
-  .form-input, .form-textarea {
-    width: 100%; background: rgba(13,24,33,0.92); border: 1px solid var(--border);
-    color: var(--text); padding: 0.6rem; font-family: 'Fira Code', monospace;
-    font-size: 0.74rem; outline: none; transition: border-color 0.3s;
-  }
+  .form-input, .form-textarea { width: 100%; background: rgba(13,24,33,0.92); border: 1px solid var(--border); color: var(--text); padding: 0.6rem; font-family: 'Fira Code', monospace; font-size: 0.74rem; outline: none; transition: border-color 0.3s; }
   .form-input:focus, .form-textarea:focus { border-color: var(--cyan); }
   .form-textarea { resize: vertical; min-height: 88px; }
-  .btn-primary {
-    background: var(--cyan); color: var(--bg); padding: 0.65rem 1.5rem;
-    font-family: 'Fira Code', monospace; font-size: 0.7rem;
-    letter-spacing: 2px; text-transform: uppercase; border: none;
-    cursor: pointer; transition: opacity 0.3s; width: 100%; margin-top: 0.35rem;
-  }
+  .btn-primary { background: var(--cyan); color: var(--bg); padding: 0.65rem 1.5rem; font-family: 'Fira Code', monospace; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; transition: opacity 0.3s; width: 100%; margin-top: 0.35rem; }
   .btn-primary:hover { opacity: 0.85; }
 
-  footer {
-    border-top: 1px solid var(--border); padding: 1.2rem 4rem;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;
-    position: relative; z-index: 1;
-  }
+  footer { border-top: 1px solid var(--border); padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; position: relative; z-index: 1; }
   footer span { color: var(--cyan); }
 
   .fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 768px) {
-    nav { padding: 0.9rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .nav-links a { font-size: 0.6rem; }
+    nav { padding: 0.9rem 1.2rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.58rem; letter-spacing: 1px; }
     #hero { padding: 6rem 1.5rem 3rem; flex-direction: column; }
     .hero-left { flex-direction: column; align-items: flex-start; gap: 1rem; }
     section { padding: 3.5rem 1.5rem; }
@@ -286,9 +190,7 @@
     <button class="modal-close" onclick="closeModal()">✕ close</button>
     <div class="modal-title" id="modalTitle"></div>
     <div class="modal-inst" id="modalInst"></div>
-    <div class="modal-cert-display" id="modalDisplay">
-      <span>Certificate</span>
-    </div>
+    <div class="modal-cert-display" id="modalDisplay"></div>
     <a class="modal-link" id="modalLink" href="#" target="_blank">→ View on Coursera</a>
     <p class="modal-note" id="modalNote"></p>
   </div>
@@ -298,6 +200,7 @@
   <div class="nav-links">
     <a href="#profile">About</a>
     <a href="#skills">Skills</a>
+    <a href="#stats">Stats</a>
     <a href="#projects">Projects</a>
     <a href="#education">Education</a>
     <a href="#certs">Certificates</a>
@@ -310,7 +213,9 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left fade-up">
-      <div class="hero-photo">AR</div>
+      <div class="hero-photo">
+        <img src="https://github.com/arslanrejepov.png" alt="Arslan Rejepov" onerror="this.style.display='none';this.parentElement.textContent='AR'">
+      </div>
       <div>
         <div class="hero-badge">● Open to Internships</div>
         <h1 class="hero-name">Arslan <span>Rejepov</span></h1>
@@ -386,9 +291,40 @@
 
   <hr class="divider">
 
+  <!-- GITHUB STATS -->
+  <section id="stats">
+    <div class="section-label">03 — GitHub Activity</div>
+    <h2 class="section-title">STATS</h2>
+    <div class="stats-grid fade-up">
+      <div class="stats-card">
+        <img
+          src="https://github-readme-stats.vercel.app/api?username=arslanrejepov&show_icons=true&hide_border=true&bg_color=0d1821&title_color=00e5ff&icon_color=00e5ff&text_color=c8d8e4&ring_color=00e5ff"
+          alt="GitHub Stats"
+          loading="lazy">
+        <div class="stats-label">// github stats</div>
+      </div>
+      <div class="stats-card">
+        <img
+          src="https://streak-stats.demolab.com?user=arslanrejepov&hide_border=true&background=0d1821&ring=00e5ff&fire=00e5ff&currStreakLabel=00e5ff&sideLabels=c8d8e4&dates=4a6070&stroke=1a2d3d&currStreakNum=f0f8ff&sideNums=c8d8e4"
+          alt="GitHub Streak"
+          loading="lazy">
+        <div class="stats-label">// contribution streak</div>
+      </div>
+      <div class="stats-card">
+        <img
+          src="https://github-readme-stats.vercel.app/api/top-langs/?username=arslanrejepov&layout=compact&hide_border=true&bg_color=0d1821&title_color=00e5ff&text_color=c8d8e4&langs_count=6"
+          alt="Top Languages"
+          loading="lazy">
+        <div class="stats-label">// most used languages</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- PROJECTS -->
   <section id="projects">
-    <div class="section-label">03 — Work</div>
+    <div class="section-label">04 — Work</div>
     <h2 class="section-title">PROJECTS</h2>
     <div class="projects-grid">
       <div class="project-card fade-up">
@@ -426,7 +362,7 @@
 
   <!-- EDUCATION -->
   <section id="education">
-    <div class="section-label">04 — Academic</div>
+    <div class="section-label">05 — Academic</div>
     <h2 class="section-title">EDUCATION</h2>
     <div class="edu-grid">
       <div class="edu-card fade-up">
@@ -443,7 +379,7 @@
         <div class="edu-num">02</div>
         <div class="edu-school">Online Courses</div>
         <div class="edu-degree">DeepLearning.AI · IBM · Imperial College · Google · Coursera</div>
-        <p class="edu-desc">Completed courses in Machine Learning, Deep Learning fundamentals, Linear Algebra, AI, Data Science, Cybersecurity, and Software Design — self-directed study alongside the degree.</p>
+        <p class="edu-desc">Completed courses in Machine Learning, Deep Learning fundamentals, Linear Algebra, AI, Data Science, and Software Design — self-directed alongside the degree.</p>
         <div class="edu-meta">
           <span>2024 – 2025</span>
           <span style="color:var(--cyan)">Several Credentials</span>
@@ -456,36 +392,83 @@
 
   <!-- CERTIFICATES -->
   <section id="certs">
-    <div class="section-label">05 — Credentials</div>
+    <div class="section-label">06 — Credentials</div>
     <h2 class="section-title">CERTIFICATES</h2>
-    <p style="font-size:0.7rem;color:var(--muted);margin-bottom:1.6rem;letter-spacing:0.5px;">Click any item to view the certificate. Provide your certificate image links and I'll wire them in.</p>
+    <p style="font-size:0.7rem;color:var(--muted);margin-bottom:1.6rem;">Click any certificate to view it.</p>
     <div class="certs-grid">
+
       <div class="cert-group fade-up">
         <div class="cert-group-title">DeepLearning.AI</div>
-        <div class="cert-item" onclick="openModal('Advanced Learning Algorithms','DeepLearning.AI','https://coursera.org','')">Advanced Learning Algorithms</div>
+        <div class="cert-item" onclick="openModal(
+          'Advanced Learning Algorithms',
+          'DeepLearning.AI',
+          'https://coursera.org',
+          'assets/certs/deeplearning-Al.png',
+          '')">Advanced Learning Algorithms</div>
       </div>
+
       <div class="cert-group fade-up" style="transition-delay:0.07s">
         <div class="cert-group-title">Imperial College London</div>
-        <div class="cert-item" onclick="openModal('Math for ML: Linear Algebra','Imperial College London','https://coursera.org','')">Math for ML: Linear Algebra</div>
+        <div class="cert-item" onclick="openModal(
+          'Math for ML: Linear Algebra',
+          'Imperial College London',
+          'https://coursera.org',
+          'assets/certs/imperial-linear-math.png',
+          '')">Math for ML: Linear Algebra</div>
       </div>
+
       <div class="cert-group fade-up" style="transition-delay:0.14s">
         <div class="cert-group-title">University of Alberta</div>
-        <div class="cert-item" onclick="openModal('Design Patterns','University of Alberta','https://coursera.org','')">Design Patterns</div>
+        <div class="cert-item" onclick="openModal(
+          'Design Patterns',
+          'University of Alberta',
+          'https://coursera.org',
+          '',
+          '')">Design Patterns</div>
       </div>
+
       <div class="cert-group fade-up" style="transition-delay:0.21s">
         <div class="cert-group-title">Coursera</div>
-        <div class="cert-item" onclick="openModal('Learn to Choose the Right ML Model','Coursera','https://coursera.org','')">Choose the Right ML Model</div>
+        <div class="cert-item" onclick="openModal(
+          'Learn to Choose the Right ML Model',
+          'Coursera',
+          'https://coursera.org',
+          'assets/certs/coursera-learn-to-choose-right-model.png',
+          '')">Choose the Right ML Model</div>
       </div>
+
       <div class="cert-group fade-up" style="transition-delay:0.28s">
         <div class="cert-group-title">IBM</div>
-        <div class="cert-item" onclick="openModal('Introduction to Artificial Intelligence (AI)','IBM','https://coursera.org','')">Introduction to AI</div>
-        <div class="cert-item" onclick="openModal('What is Data Science?','IBM','https://coursera.org','')">What is Data Science?</div>
+        <div class="cert-item" onclick="openModal(
+          'Introduction to Artificial Intelligence (AI)',
+          'IBM',
+          'https://coursera.org',
+          'assets/certs/ibm-intro-ai.png',
+          '')">Introduction to AI</div>
+        <div class="cert-item" onclick="openModal(
+          'What is Data Science?',
+          'IBM',
+          'https://coursera.org',
+          'assets/certs/ibm-whats-the-ds.png',
+          '')">What is Data Science?</div>
       </div>
+
       <div class="cert-group fade-up" style="transition-delay:0.35s">
         <div class="cert-group-title">ZJUT Achievement</div>
-        <div class="cert-item" onclick="openModal('University Scholarship','Zhejiang University of Technology · 1st Award','#','Awarded for academic performance in Year 1.')">Scholarship · Year 1</div>
-        <div class="cert-item" onclick="openModal('University Scholarship','Zhejiang University of Technology · 2nd Award','#','Awarded for academic performance in Year 2.')">Scholarship · Year 2</div>
+        <div class="cert-item" onclick="openModal(
+          'University Scholarship',
+          'Zhejiang University of Technology · 1st Award',
+          '',
+          '',
+          'Awarded for academic performance in Year 1.')">Scholarship · Year 1</div>
+        <div class="cert-item" onclick="openModal(
+          'University Scholarship',
+          'Zhejiang University of Technology · 2nd Award',
+          '',
+          '',
+          'Awarded for academic performance in Year 2.')">Scholarship · Year 2</div>
       </div>
+
     </div>
   </section>
 
@@ -493,7 +476,7 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="section-label">06 — Connect</div>
+    <div class="section-label">07 — Connect</div>
     <h2 class="section-title">CONTACT</h2>
     <div id="contact-wrap">
       <div>
@@ -505,11 +488,14 @@
           <a href="https://github.com/arslanrejepov" class="contact-link" target="_blank">
             <span class="contact-icon">⌥</span> github.com/arslanrejepov
           </a>
-          <a href="https://kaggle.com/arslanrejepov" class="contact-link" target="_blank">
-            <span class="contact-icon">◈</span> Kaggle Profile
+          <a href="https://www.linkedin.com/in/arslan-rejepov" class="contact-link" target="_blank">
+            <span class="contact-icon">in</span> linkedin.com/in/arslan-rejepov
           </a>
-          <a href="#" class="contact-link" target="_blank">
-            <span class="contact-icon">in</span> LinkedIn — share your link
+          <a href="https://www.kaggle.com/arslanrejepov" class="contact-link" target="_blank">
+            <span class="contact-icon">◈</span> kaggle.com/arslanrejepov
+          </a>
+          <a href="https://leetcode.com/ArslanRejepov" class="contact-link" target="_blank">
+            <span class="contact-icon">{ }</span> leetcode.com/ArslanRejepov
           </a>
         </div>
       </div>
@@ -540,21 +526,12 @@
 
 <script>
 // ── LAYERED NEURAL NETWORK BACKGROUND ─────────────────────────────────────
-// 15 layers: input (left) → 13 hidden → output (right)
-// Signals flow strictly left → right
-
 const canvas = document.getElementById('neural-canvas');
 const ctx = canvas.getContext('2d');
-
-const CYAN_C = '0,229,255';
-const GREEN_C = '57,255,20';
-
-// 15 layer sizes — input/output smaller, hidden layers bulge in middle
+const CYAN_C = '0,229,255', GREEN_C = '57,255,20';
 const LAYERS = [5, 8, 11, 13, 14, 15, 14, 13, 12, 11, 10, 8, 7, 5, 4];
-const L = LAYERS.length; // 15
-
-let W, H, nodes = [], edges = [], signals = [], layerStarts = [];
-let frame = 0;
+const L = LAYERS.length;
+let W, H, nodes = [], edges = [], signals = [], layerStarts = [], frame = 0;
 
 function resize() {
   W = canvas.width = window.innerWidth;
@@ -564,158 +541,91 @@ function resize() {
 
 function buildNet() {
   nodes = []; edges = []; signals = []; layerStarts = [];
-
   const padX = W * 0.03;
-  const usableW = W - padX * 2;
-  const layerGap = usableW / (L - 1);
+  const layerGap = (W - padX * 2) / (L - 1);
   const maxN = Math.max(...LAYERS);
-
   let idx = 0;
   for (let l = 0; l < L; l++) {
     layerStarts[l] = idx;
     const count = LAYERS[l];
     const x = padX + l * layerGap;
-    const slotH = H / (maxN + 1);
     const offset = (maxN - count) / 2;
-
+    const slotH = H / (maxN + 1);
     for (let n = 0; n < count; n++) {
-      nodes.push({
-        l, n, x,
-        y: (offset + n + 1) * slotH,
-        pulse: Math.random() * Math.PI * 2,
-        litTimer: 0,
-        r: (l === 0 || l === L - 1) ? 3.5 : 2.2
-      });
+      nodes.push({ l, n, x, y: (offset + n + 1) * slotH, pulse: Math.random() * Math.PI * 2, litTimer: 0, r: (l === 0 || l === L - 1) ? 3.5 : 2.2 });
       idx++;
     }
   }
-
-  // Edges: each node connects to all nodes in next layer
   for (let l = 0; l < L - 1; l++) {
-    const aCount = LAYERS[l], bCount = LAYERS[l + 1];
-    for (let a = 0; a < aCount; a++) {
-      for (let b = 0; b < bCount; b++) {
-        // Vary alpha by layer depth for depth effect
-        const alpha = 0.025 + (l / L) * 0.04 + Math.random() * 0.025;
-        edges.push({ from: layerStarts[l] + a, to: layerStarts[l + 1] + b, alpha });
+    for (let a = 0; a < LAYERS[l]; a++) {
+      for (let b = 0; b < LAYERS[l + 1]; b++) {
+        edges.push({ from: layerStarts[l] + a, to: layerStarts[l + 1] + b, alpha: 0.025 + (l / L) * 0.04 + Math.random() * 0.025 });
       }
     }
   }
-
-  // Seed several active signals spread across network
   for (let i = 0; i < 12; i++) spawnSignal(Math.random());
 }
 
-function spawnSignal(progressOffset = 0) {
-  // Weight toward earlier layers for a wave effect
-  const layerIdx = Math.floor(Math.pow(Math.random(), 1.8) * (L - 1));
-  const aCount = LAYERS[layerIdx];
-  const bCount = LAYERS[layerIdx + 1];
-  if (!aCount || !bCount) return;
-  const a = layerStarts[layerIdx] + Math.floor(Math.random() * aCount);
-  const b = layerStarts[layerIdx + 1] + Math.floor(Math.random() * bCount);
-  signals.push({
-    from: a, to: b,
-    progress: progressOffset,
-    speed: 0.007 + Math.random() * 0.006,
-    color: Math.random() < 0.12 ? GREEN_C : CYAN_C
-  });
+function spawnSignal(p = 0) {
+  const l = Math.floor(Math.pow(Math.random(), 1.8) * (L - 1));
+  if (!LAYERS[l] || !LAYERS[l + 1]) return;
+  const a = layerStarts[l] + Math.floor(Math.random() * LAYERS[l]);
+  const b = layerStarts[l + 1] + Math.floor(Math.random() * LAYERS[l + 1]);
+  signals.push({ from: a, to: b, progress: p, speed: 0.007 + Math.random() * 0.006, color: Math.random() < 0.12 ? GREEN_C : CYAN_C });
 }
 
 function draw() {
   ctx.clearRect(0, 0, W, H);
   frame++;
-
-  // Draw all edges
   for (const e of edges) {
     const a = nodes[e.from], b = nodes[e.to];
-    ctx.beginPath();
-    ctx.strokeStyle = `rgba(0,180,210,${e.alpha})`;
-    ctx.lineWidth = 0.35;
-    ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-    ctx.stroke();
+    ctx.beginPath(); ctx.strokeStyle = `rgba(0,180,210,${e.alpha})`; ctx.lineWidth = 0.35;
+    ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
   }
-
-  // Draw & advance signals
   const alive = [];
   for (const s of signals) {
     const a = nodes[s.from], b = nodes[s.to];
     const x = a.x + (b.x - a.x) * s.progress;
     const y = a.y + (b.y - a.y) * s.progress;
-
-    // Glow
     const g = ctx.createRadialGradient(x, y, 0, x, y, 8);
-    g.addColorStop(0, `rgba(${s.color},0.9)`);
-    g.addColorStop(0.45, `rgba(${s.color},0.3)`);
-    g.addColorStop(1, `rgba(${s.color},0)`);
-    ctx.beginPath(); ctx.fillStyle = g;
-    ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
-
-    // Trail
+    g.addColorStop(0, `rgba(${s.color},0.9)`); g.addColorStop(0.45, `rgba(${s.color},0.3)`); g.addColorStop(1, `rgba(${s.color},0)`);
+    ctx.beginPath(); ctx.fillStyle = g; ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
     const tp = Math.max(0, s.progress - 0.18);
-    const tx = a.x + (b.x - a.x) * tp;
-    const ty = a.y + (b.y - a.y) * tp;
-    ctx.beginPath();
-    ctx.strokeStyle = `rgba(${s.color},0.55)`;
-    ctx.lineWidth = 1.3;
-    ctx.moveTo(tx, ty); ctx.lineTo(x, y); ctx.stroke();
-
+    ctx.beginPath(); ctx.strokeStyle = `rgba(${s.color},0.55)`; ctx.lineWidth = 1.3;
+    ctx.moveTo(a.x + (b.x - a.x) * tp, a.y + (b.y - a.y) * tp); ctx.lineTo(x, y); ctx.stroke();
     s.progress += s.speed;
-    if (s.progress >= 1) {
-      nodes[s.to].litTimer = 20;
-    } else {
-      alive.push(s);
-    }
+    if (s.progress >= 1) { nodes[s.to].litTimer = 20; } else { alive.push(s); }
   }
   signals = alive;
-
-  // Spawn new signals
   if (frame % 20 === 0 && signals.length < 35) spawnSignal();
   if (frame % 55 === 0) { spawnSignal(); spawnSignal(); }
-
-  // Draw nodes
   for (const n of nodes) {
     n.pulse += 0.018;
-    let r = n.r;
-    let alpha = 0.45 + Math.sin(n.pulse) * 0.2;
+    let r = n.r, alpha = 0.45 + Math.sin(n.pulse) * 0.2;
     const color = (n.l === 0 || n.l === L - 1) ? GREEN_C : CYAN_C;
-
-    if (n.litTimer > 0) {
-      alpha = Math.min(1, alpha + 0.5);
-      r = n.r * 2;
-      n.litTimer--;
-    }
-
-    // Outer glow ring
+    if (n.litTimer > 0) { alpha = Math.min(1, alpha + 0.5); r = n.r * 2; n.litTimer--; }
     const gn = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 5);
-    gn.addColorStop(0, `rgba(${color},${alpha * 0.35})`);
-    gn.addColorStop(1, `rgba(${color},0)`);
-    ctx.beginPath(); ctx.fillStyle = gn;
-    ctx.arc(n.x, n.y, r * 5, 0, Math.PI * 2); ctx.fill();
-
-    // Core
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(${color},${alpha})`;
-    ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill();
+    gn.addColorStop(0, `rgba(${color},${alpha * 0.35})`); gn.addColorStop(1, `rgba(${color},0)`);
+    ctx.beginPath(); ctx.fillStyle = gn; ctx.arc(n.x, n.y, r * 5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle = `rgba(${color},${alpha})`; ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill();
   }
-
   requestAnimationFrame(draw);
 }
-
-resize();
-draw();
+resize(); draw();
 window.addEventListener('resize', resize);
 
 // ── Certificate Modal ──────────────────────────────────────────────────────
-function openModal(title, inst, link, note) {
+function openModal(title, inst, link, imgPath, note) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalInst').textContent = inst;
   const ml = document.getElementById('modalLink');
-  ml.href = link;
-  ml.style.display = link === '#' ? 'none' : 'inline-block';
-  document.getElementById('modalDisplay').innerHTML =
-    `<span style="color:var(--muted);font-size:0.7rem;text-align:center;padding:1rem;">` +
-    `Certificate · ${title}<br><span style="font-size:0.6rem;opacity:0.6">Add your certificate image/link to show it here</span></span>`;
+  if (link) { ml.href = link; ml.style.display = 'inline-block'; } else { ml.style.display = 'none'; }
+  const display = document.getElementById('modalDisplay');
+  if (imgPath) {
+    display.innerHTML = `<img src="${imgPath}" alt="${title}" onerror="this.parentElement.innerHTML='<span>Certificate image — make sure the file is in assets/certs/ in your repo</span>'">`;
+  } else {
+    display.innerHTML = `<span>No image linked yet — add it to assets/certs/ in your repo</span>`;
+  }
   document.getElementById('modalNote').textContent = note || '';
   document.getElementById('certModal').classList.add('active');
 }
@@ -727,7 +637,6 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, { threshold: 0.07 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
 window.addEventListener('load', () => {
   document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 150 + i * 120);
